@@ -14,6 +14,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -21,6 +28,9 @@ import Image from "next/image";
 import { GithubIcon } from "@/components/ui/github";
 import { LinkIcon } from "@/components/ui/link";
 import { YoutubeIcon } from "@/components/ui/youtube";
+import { TwitterIcon } from "@/components/ui/twitter";
+import { InstagramIcon } from "@/components/ui/instagram";
+import { LinkedinIcon } from "@/components/ui/linkedin";
 
 interface Project {
   title: string;
@@ -105,22 +115,35 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-col items-center w-screen min-h-screen">
-      <div className="w-[650px] flex flex-col items-center space-y-12 py-2 text-start flex-grow">
+    <div className="flex flex-col items-center w-screen min-h-screen py-12">
+      <div className="w-[300px] sm:w-[650px] flex flex-col items-center space-y-12 py-2 text-start flex-grow">
         {/* Top Page */}
-        <section className="text-center space-y-4 w-full">
-          <h1 className="text-2xl font-bold">Your Name</h1>
-          <div className="flex items-between justify-between">
-            <p className="max-w-xl mx-auto text-muted-foreground">
-              ここに100字程度の自己紹介文を入れます。
-              <br />
-              ここに100字程度の自己紹介文を入れます。
-            </p>
+        <section className="space-y-4 w-full flex flex-col items-center">
+          <div className="w-full flex flex-col-reverse sm:flex-row items-center sm:items-start justify-center sm:justify-between gap-6">
+            <div className="flex flex-col space-y-4">
+              <h1 className="w-full text-start">大塚遙 -Yoh Otsuka-</h1>
+              <div className="w-full flex justify-start">
+                <TwitterIcon />
+                <InstagramIcon />
+                <LinkedinIcon />
+              </div>
+
+              <p className="text-start">
+                関西在住のソフトウェアエンジニア
+                {/* 2000年12月20日生まれ。兵庫県神戸育ち。 */}
+                <br />
+                人々の学びや娯楽を充実させるアプリを作ってます。
+                <br />
+                休みの日は謎解きしたり。バレーボールしたり。お絵描きしたり。
+                <br />
+              </p>
+            </div>
             <div className="flex-y-grow">
-              <Avatar>
+              <Avatar className="w-48 h-48 bg-gray-200">
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src="/images/profile_image.jpg"
+                  alt="profile_image"
+                  className="w-full h-full object-cover "
                 />
               </Avatar>
             </div>
@@ -138,27 +161,80 @@ export default function Home() {
           >
             <CarouselContent>
               {profiles.map((profile, idx) => (
-                <CarouselItem key={idx} className="md:basis-1/1 lg:basis-1/2">
-                  <div className="p-1">
-                    <Card className="p-0">
-                      <CardContent className="flex flex-col items-center justify-center space-y-2 pt-2 pb-6 px-2">
-                        <Image
-                          src={
-                            "/images/profiles/thumbnails/" + profile.thumbnail
-                          }
-                          alt={profile.titleEng}
-                          width={72}
-                          height={72}
-                          className="w-full object-cover rounded-lg"
-                        />
-                        <div className="w-full text-start px-2">
-                          <h3>{profile.title}</h3>
-                          <p className="">{profile.titleEng}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
+                <Dialog key={idx}>
+                  <DialogTrigger asChild>
+                    <CarouselItem className="md:basis-1/1 lg:basis-1/2">
+                      <div className="p-1">
+                        <Card className="p-0">
+                          <CardContent className="flex flex-col items-center justify-center space-y-2 pt-2 pb-6 px-2">
+                            <Image
+                              src={
+                                "/images/profiles/thumbnails/" +
+                                profile.thumbnail
+                              }
+                              alt={profile.titleEng}
+                              width={600}
+                              height={600}
+                              className="w-full object-cover rounded-lg"
+                            />
+                            <div className="w-full text-start px-2">
+                              <h4>{profile.title}</h4>
+                              <p className="">{profile.titleEng}</p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-screen">
+                    <DialogHeader>
+                      <DialogTitle className="text-start text-2xl font-bold">
+                        {profile.title}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className=" flex flex-col items-center mt-6">
+                      <h3>詳細</h3>
+                      {profile.content && (
+                        <p className="text-start">
+                          {profile.content.split("\n").map((line, index) => (
+                            <span key={index}>
+                              {line}
+                              <br />
+                            </span>
+                          ))}
+                        </p>
+                      )}
+                      {profile.note && (
+                        <p className="text-sm text-muted-foreground">
+                          {profile.note}
+                        </p>
+                      )}
+                      <Carousel className="mb-6">
+                        <CarouselContent className="">
+                          {profile.images.map((image, index) => (
+                            <CarouselItem key={index} className="">
+                              <div className="">
+                                <Card className="p-0 my-1 border-none">
+                                  <CardContent className="flex items-center justify-center px-12 ">
+                                    <Image
+                                      src={"/images/profiles/" + image}
+                                      alt={image}
+                                      width={600}
+                                      height={600}
+                                      className="w-full object-cover rounded-lg"
+                                    />
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="absolute bottom-10 left-4" />
+                        <CarouselNext className="absolute bottom-6 right-4 w-8 h-8" />
+                      </Carousel>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               ))}
             </CarouselContent>
             <CarouselPrevious className="w-16 h-16" />
@@ -190,8 +266,8 @@ export default function Home() {
                           </Avatar>
                         </div>
                         <div className="p-4 space-y-2">
-                          <h3>{project.title}</h3>
-                          <h4>{project.description}</h4>
+                          <h4>{project.title}</h4>
+                          <p>{project.description}</p>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -200,7 +276,7 @@ export default function Home() {
                         <Carousel className="mb-6">
                           <CarouselContent className="">
                             {project.images.map((image, index) => (
-                              <CarouselItem key={index} className="">
+                              <CarouselItem key={index} className="w-36">
                                 <div className="">
                                   <Card className="p-0 my-1 border-none">
                                     <CardContent className="flex items-center justify-center p-0 ">
@@ -209,9 +285,9 @@ export default function Home() {
                                           "/images/projects/details/" + image
                                         }
                                         alt={project.slug}
-                                        width={72}
-                                        height={72}
-                                        className="w-full"
+                                        width={400}
+                                        height={400}
+                                        className="w-60 object-cover p-0"
                                       />
                                     </CardContent>
                                   </Card>
