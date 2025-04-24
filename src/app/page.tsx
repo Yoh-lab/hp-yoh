@@ -116,10 +116,10 @@ export default function Home() {
 
         {/* Projects */}
         <section className="text-center space-y-4 w-full">
-          <h2 className="">Projects</h2>
+          <h2 className="text-start">Projects</h2>
           {sortedYears.map((year) => (
-            <div key={year} className="mb-6">
-              <h3 className="text-xl font-bold mb-2">{year}</h3>
+            <div key={year} className="">
+              <h3 className="text-start">{year}</h3>
               <Accordion type="single" collapsible className="w-full">
                 {projectsByYear[year].map((project, idx) => (
                   <AccordionItem key={idx} value={`${year}-${idx}`}>
