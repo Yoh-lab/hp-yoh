@@ -115,7 +115,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-col items-center w-screen min-h-screen py-12">
+    <div className="flex flex-col items-center w-screen min-h-screen py-6 sm:py-12">
       <div className="w-[300px] sm:w-[650px] flex flex-col items-center space-y-12 py-2 text-start flex-grow">
         {/* Top Page */}
         <section className="space-y-4 w-full flex flex-col items-center">
@@ -139,7 +139,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex-y-grow">
-              <Avatar className="w-48 h-48 bg-gray-200">
+              <Avatar className="w-36 h-36 sm:w-48 sm:h-48 bg-gray-200">
                 <AvatarImage
                   src="/images/profile_image.jpg"
                   alt="profile_image"
