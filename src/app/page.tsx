@@ -1,4 +1,5 @@
 import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   Accordion,
@@ -24,12 +25,14 @@ import { YoutubeIcon } from "@/components/ui/youtube";
 interface Project {
   title: string;
   thumbnail: string;
+  year: number;
   period: string;
   description: string;
   images: string[];
   link: string;
   video: string;
   repository: string;
+  note: string;
   techs?: string[];
   slug: string;
   content: string;
@@ -46,21 +49,37 @@ export default function Home() {
     return {
       title: data.title,
       thumbnail: data.thumbnail,
+      year: data.year,
       period: data.period,
       description: data.description,
       images: data.images ?? null,
       link: data.link ?? null,
       video: data.video ?? null,
       repository: data.repository ?? null,
+      note: data.note ?? null,
       techs: data.techs,
       slug: data.slug,
       content,
     };
   });
 
+  const projectsByYear = projects.reduce((acc, project) => {
+    const year = project.year;
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(project);
+    return acc;
+  }, {} as Record<number, Project[]>);
+
+  const sortedYears = Object.keys(projectsByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  console.log(sortedYears);
+  console.log(projectsByYear);
+
   return (
     <div className="flex flex-col items-center w-screen min-h-screen">
-      <div className="w-[480px] flex flex-col items-center py-2 text-start flex-grow">
+      <div className="w-[650px] flex flex-col items-center py-2 text-start flex-grow">
         {/* Top Page */}
         <section className="text-center space-y-4 w-full">
           <h1 className="text-2xl font-bold">Your Name</h1>
@@ -98,61 +117,78 @@ export default function Home() {
         {/* Projects */}
         <section className="text-center space-y-4 w-full">
           <h2 className="">Projects</h2>
-          <Accordion type="single" collapsible className="w-full">
-            {projects.map((project, idx) => (
-              <AccordionItem key={idx} value={idx.toString()}>
-                <AccordionTrigger>
-                  <div className="flex items-center justify-start w-full ">
-                    <div className="flex-y-grow">
-                      <Avatar className="w-32 h-32 rounded-sm">
-                        <AvatarImage
-                          src={"/images/thumbnails/" + project.thumbnail}
-                          alt="@shadcn"
-                        />
-                      </Avatar>
-                    </div>
-                    <div className="p-4 space-y-2">
-                      <h3 className="text-lg font-bold">{project.title}</h3>
-                      <p>{project.description}</p>
-                    </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="flex items-center justify-start w-full ">
-                    <Carousel className="mx-10">
-                      <CarouselContent className="">
-                        {project.images.map((image, index) => (
-                          <CarouselItem key={index} className="p-0 ">
-                            <Image
-                              src={"/images/details/" + image}
-                              alt={project.slug}
-                              width={72}
-                              height={72}
-                              className="w-16 h-16"
+          {sortedYears.map((year) => (
+            <div key={year} className="mb-6">
+              <h3 className="text-xl font-bold mb-2">{year}</h3>
+              <Accordion type="single" collapsible className="w-full">
+                {projectsByYear[year].map((project, idx) => (
+                  <AccordionItem key={idx} value={`${year}-${idx}`}>
+                    <AccordionTrigger>
+                      <div className="flex items-center justify-start w-full ">
+                        <div className="flex-y-grow">
+                          <Avatar className="w-24 h-24 bg-gray-200">
+                            <AvatarImage
+                              src={"/images/thumbnails/" + project.thumbnail}
+                              alt="@shadcn"
+                              className="object-contain w-full h-full"
                             />
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious />
-                      <CarouselNext />
-                    </Carousel>
-
-                    <div className="flex flex-col items-start p-4 space-y-2 text-start">
-                      <p>開発期間: {project.period}</p>
-                      <p className="text-sm text-muted-foreground">
-                        使用技術: {project.techs?.join(", ")}
-                      </p>
-                      <div className="flex items-center justify-end space-x-2">
-                        {project.repository && <GithubIcon className="" />}
-                        {project.link && <LinkIcon className="" />}
-                        {project.video && <YoutubeIcon className="" />}
+                          </Avatar>
+                        </div>
+                        <div className="p-4 space-y-2">
+                          <h3 className="text-lg font-bold">{project.title}</h3>
+                          <p>{project.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex items-center justify-start w-full ">
+                        <Carousel className="mb-6">
+                          <CarouselContent className="">
+                            {project.images.map((image, index) => (
+                              <CarouselItem key={index} className="">
+                                <div className="">
+                                  <Card className="p-0 my-1 border-none">
+                                    <CardContent className="flex items-center justify-center p-0 ">
+                                      <Image
+                                        src={"/images/details/" + image}
+                                        alt={project.slug}
+                                        width={72}
+                                        height={72}
+                                        className="w-full"
+                                      />
+                                    </CardContent>
+                                  </Card>
+                                </div>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          <CarouselPrevious className="absolute bottom-10 left-4" />
+                          <CarouselNext className="absolute bottom-6 right-4" />
+                        </Carousel>
+
+                        <div className="flex flex-col items-start p-4 space-y-2 text-start">
+                          <p>開発期間: {project.period}</p>
+                          <p className="">
+                            使用技術: {project.techs?.join(", ")}
+                          </p>
+                          {project.note && (
+                            <p className="text-sm text-muted-foreground">
+                              {project.note}
+                            </p>
+                          )}
+                          <div className="flex items-center justify-end space-x-2">
+                            {project.repository && <GithubIcon className="" />}
+                            {project.link && <LinkIcon className="" />}
+                            {project.video && <YoutubeIcon className="" />}
+                          </div>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          ))}
         </section>
       </div>
     </div>
