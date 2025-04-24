@@ -120,12 +120,12 @@ export default function Home() {
         {/* Top Page */}
         <section className="space-y-4 w-full flex flex-col items-center">
           <div className="w-full flex flex-col-reverse sm:flex-row items-center sm:items-start justify-center sm:justify-between gap-6">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-1 sm:space-y-4">
               <h1 className="w-full text-start">大塚遙 -Yoh Otsuka-</h1>
               <div className="w-full flex justify-start">
-                <TwitterIcon />
-                <InstagramIcon />
-                <LinkedinIcon />
+                <TwitterIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                <InstagramIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                <LinkedinIcon className="w-9 h-9 sm:w-12 sm:h-12" />
               </div>
 
               <p className="text-start">
@@ -143,7 +143,7 @@ export default function Home() {
                 <AvatarImage
                   src="/images/profile_image.jpg"
                   alt="profile_image"
-                  className="w-full h-full object-cover "
+                  className="w-full h-full object-cover object-top object-[75%_25%]"
                 />
               </Avatar>
             </div>
@@ -312,10 +312,16 @@ export default function Home() {
                               {project.note}
                             </p>
                           )}
-                          <div className="flex items-center justify-end space-x-2">
-                            {project.repository && <GithubIcon className="" />}
-                            {project.link && <LinkIcon className="" />}
-                            {project.video && <YoutubeIcon className="" />}
+                          <div className="flex items-center justify-end space-x-0 sm:space-x-2">
+                            {project.repository && (
+                              <GithubIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                            )}
+                            {project.link && (
+                              <LinkIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                            )}
+                            {project.video && (
+                              <YoutubeIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                            )}
                           </div>
                         </div>
                       </div>
