@@ -134,7 +134,7 @@ export default function Home() {
                 <br />
                 人々の学びや娯楽を充実させるアプリを作ってます。
                 <br />
-                休みの日は謎解きしたり。バレーボールしたり。お絵描きしたり。
+                休日は謎解きしたり。バレーボールしたり。お絵描きしたり。
                 <br />
               </p>
             </div>
@@ -272,11 +272,14 @@ export default function Home() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="flex items-center justify-start w-full ">
+                      <div className="flex flex-col-reverse sm:flex-row items-center justify-start w-full ">
                         <Carousel className="mb-6">
                           <CarouselContent className="">
                             {project.images.map((image, index) => (
-                              <CarouselItem key={index} className="w-36">
+                              <CarouselItem
+                                key={index}
+                                className="w-24 sm:w-36"
+                              >
                                 <div className="">
                                   <Card className="p-0 my-1 border-none">
                                     <CardContent className="flex items-center justify-center p-0 ">
@@ -295,11 +298,11 @@ export default function Home() {
                               </CarouselItem>
                             ))}
                           </CarouselContent>
-                          <CarouselPrevious className="absolute bottom-10 left-4" />
-                          <CarouselNext className="absolute bottom-6 right-4" />
+                          <CarouselPrevious className="absolute bottom-10 left-0 sm:left-4" />
+                          <CarouselNext className="absolute bottom-6 right-0 sm:right-4" />
                         </Carousel>
 
-                        <div className="flex flex-col items-start p-4 space-y-2 text-start">
+                        <div className="flex flex-col items-start p-1 sm:p-4 space-y-2 text-start">
                           <p>開発期間: {project.period}</p>
                           <p className="">
                             使用技術: {project.techs?.join(", ")}
