@@ -31,6 +31,7 @@ import { YoutubeIcon } from "@/components/ui/youtube";
 import { TwitterIcon } from "@/components/ui/twitter";
 import { InstagramIcon } from "@/components/ui/instagram";
 import { LinkedinIcon } from "@/components/ui/linkedin";
+import { Separator } from "@/components/ui/separator";
 
 interface Project {
   title: string;
@@ -115,7 +116,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-col items-center w-screen min-h-screen py-6 sm:py-12">
+    <div className="flex flex-col items-center w-screen min-h-screen pt-6 sm:pt-12">
       <div className="w-[300px] sm:w-[650px] flex flex-col items-center space-y-12 py-2 text-start flex-grow">
         {/* Top Page */}
         <section className="space-y-4 w-full flex flex-col items-center">
@@ -332,6 +333,10 @@ export default function Home() {
             </div>
           ))}
         </section>
+        <div className="w-full flex flex-col items-center">
+          <Separator />
+          <p className="my-4">© 2025 Yoh Otsuka</p>
+        </div>
       </div>
     </div>
   );
