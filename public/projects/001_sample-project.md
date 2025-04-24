@@ -3,6 +3,7 @@ title: 旧ポートフォリオ
 slug: old-portfolio
 thumbnail: 0001_old_portfolio.png
 description: 初めて作成したWebサイトです
+year: 2023
 period: 2023
 images:
   - 0001_old_portfolio_No1.png
@@ -10,6 +11,7 @@ images:
 link: https://yoh-react-tailwindcss-portfolio.vercel.app/
 video:
 repository: https://github.com/Yoh-lab/yoh-react-tailwindcss-portfolio
+note:
 techs:
   - React (Js)
   - Tailwind CSS

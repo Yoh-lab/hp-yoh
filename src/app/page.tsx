@@ -38,6 +38,17 @@ interface Project {
   content: string;
 }
 
+interface Profile {
+  title: string;
+  titleEng: string;
+  thumbnail: string;
+  period: string;
+  description: string;
+  images: string[];
+  note: string;
+  content: string;
+}
+
 export default function Home() {
   const projectsDir = path.join(process.cwd(), "public", "projects");
   const projectFiles = fs.readdirSync(projectsDir);
@@ -74,12 +85,28 @@ export default function Home() {
     .map(Number)
     .sort((a, b) => b - a);
 
-  console.log(sortedYears);
-  console.log(projectsByYear);
+  const profilesDir = path.join(process.cwd(), "public", "profiles");
+  const profileFiles = fs.readdirSync(profilesDir);
+
+  const profiles: Profile[] = profileFiles.map((file) => {
+    const filePath = path.join(profilesDir, file);
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const { data, content } = matter(fileContents);
+    return {
+      title: data.title,
+      titleEng: data.titleEng,
+      thumbnail: data.thumbnail,
+      period: data.period,
+      description: data.description ?? null,
+      images: data.images ?? null,
+      note: data.note ?? null,
+      content,
+    };
+  });
 
   return (
     <div className="flex flex-col items-center w-screen min-h-screen">
-      <div className="w-[650px] flex flex-col items-center py-2 text-start flex-grow">
+      <div className="w-[650px] flex flex-col items-center space-y-12 py-2 text-start flex-grow">
         {/* Top Page */}
         <section className="text-center space-y-4 w-full">
           <h1 className="text-2xl font-bold">Your Name</h1>
@@ -101,21 +128,46 @@ export default function Home() {
         </section>
 
         {/* Profile */}
-        <section className="text-center space-y-4 w-full">
-          <h2 className="">Profile</h2>
-          <Carousel>
+        <section className="space-y-4 w-full flex flex-col items-center">
+          <h2 className="w-full text-start">Profile</h2>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-[80%]"
+          >
             <CarouselContent>
-              <CarouselItem>趣味1</CarouselItem>
-              <CarouselItem>趣味2</CarouselItem>
-              <CarouselItem>趣味3</CarouselItem>
+              {profiles.map((profile, idx) => (
+                <CarouselItem key={idx} className="md:basis-1/1 lg:basis-1/2">
+                  <div className="p-1">
+                    <Card className="p-0">
+                      <CardContent className="flex flex-col items-center justify-center space-y-2 pt-2 pb-6 px-2">
+                        <Image
+                          src={
+                            "/images/profiles/thumbnails/" + profile.thumbnail
+                          }
+                          alt={profile.titleEng}
+                          width={72}
+                          height={72}
+                          className="w-full object-cover rounded-lg"
+                        />
+                        <div className="w-full text-start px-2">
+                          <h3>{profile.title}</h3>
+                          <p className="">{profile.titleEng}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="w-16 h-16" />
+            <CarouselNext className="w-16 h-16" />
           </Carousel>
         </section>
 
         {/* Projects */}
-        <section className="text-center space-y-4 w-full">
+        <section className="space-y-4 w-full">
           <h2 className="text-start">Projects</h2>
           {sortedYears.map((year) => (
             <div key={year} className="">
@@ -128,15 +180,18 @@ export default function Home() {
                         <div className="flex-y-grow">
                           <Avatar className="w-24 h-24 bg-gray-200">
                             <AvatarImage
-                              src={"/images/thumbnails/" + project.thumbnail}
+                              src={
+                                "/images/projects/thumbnails/" +
+                                project.thumbnail
+                              }
                               alt="@shadcn"
                               className="object-contain w-full h-full"
                             />
                           </Avatar>
                         </div>
                         <div className="p-4 space-y-2">
-                          <h3 className="text-lg font-bold">{project.title}</h3>
-                          <p>{project.description}</p>
+                          <h3>{project.title}</h3>
+                          <h4>{project.description}</h4>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -150,7 +205,9 @@ export default function Home() {
                                   <Card className="p-0 my-1 border-none">
                                     <CardContent className="flex items-center justify-center p-0 ">
                                       <Image
-                                        src={"/images/details/" + image}
+                                        src={
+                                          "/images/projects/details/" + image
+                                        }
                                         alt={project.slug}
                                         width={72}
                                         height={72}
