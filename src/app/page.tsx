@@ -304,15 +304,35 @@ export default function Home() {
                                   <div className="">
                                     <Card className="p-0 my-1 border-none">
                                       <CardContent className="flex items-center justify-center p-0 ">
-                                        <Image
-                                          src={
-                                            "/images/projects/details/" + image
-                                          }
-                                          alt={project.slug}
-                                          width={400}
-                                          height={400}
-                                          className="w-60 object-cover p-0"
-                                        />
+                                        <Dialog>
+                                          <DialogTrigger>
+                                            {" "}
+                                            <Image
+                                              src={
+                                                "/images/projects/details/" +
+                                                image
+                                              }
+                                              alt={project.slug}
+                                              width={400}
+                                              height={400}
+                                              className="w-60 object-cover p-0"
+                                            />
+                                          </DialogTrigger>
+                                          <DialogContent className="max-w-screen p-4">
+                                            <DialogHeader>
+                                              <DialogTitle />
+                                              <Image
+                                                src={
+                                                  "/images/projects/details/" +
+                                                  image
+                                                }
+                                                alt={project.slug}
+                                                width={1200}
+                                                height={1200}
+                                              />
+                                            </DialogHeader>
+                                          </DialogContent>
+                                        </Dialog>
                                       </CardContent>
                                     </Card>
                                   </div>
