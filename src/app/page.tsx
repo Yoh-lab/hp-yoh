@@ -341,13 +341,19 @@ export default function Home() {
                           )}
                           <div className="flex items-center justify-end">
                             {project.repository && (
-                              <GithubIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              <a href={project.repository} target="_blank">
+                                <GithubIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              </a>
                             )}
                             {project.link && (
-                              <LinkIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              <a href={project.link} target="_blank">
+                                <LinkIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              </a>
                             )}
                             {project.video && (
-                              <YoutubeIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              <a href={project.video} target="_blank">
+                                <YoutubeIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                              </a>
                             )}
                           </div>
                         </div>
