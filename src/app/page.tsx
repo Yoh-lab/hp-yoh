@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -50,6 +50,7 @@ interface Project {
 }
 
 interface Profile {
+  file: string;
   title: string;
   titleEng: string;
   thumbnail: string;
@@ -74,12 +75,12 @@ export default function Home() {
       year: data.year,
       period: data.period,
       description: data.description,
-      images: data.images ?? null,
+      images: data.images ?? [],
       link: data.link ?? null,
       video: data.video ?? null,
       repository: data.repository ?? null,
       note: data.note ?? null,
-      techs: data.techs,
+      techs: data.techs ?? [],
       slug: data.slug,
       content,
     };
@@ -100,10 +101,12 @@ export default function Home() {
   const profileFiles = fs.readdirSync(profilesDir);
 
   const profiles: Profile[] = profileFiles.map((file) => {
+    const filename = path.basename(file, ".md");
     const filePath = path.join(profilesDir, file);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(fileContents);
     return {
+      file: filename,
       title: data.title,
       titleEng: data.titleEng,
       thumbnail: data.thumbnail,
@@ -114,6 +117,10 @@ export default function Home() {
       content,
     };
   });
+  const sortedProfiles = profiles.sort((a, b) => {
+    return a.file.localeCompare(b.file);
+  });
+  console.log(sortedProfiles);
 
   return (
     <div className="flex flex-col items-center w-screen min-h-screen pt-6 sm:pt-12">
@@ -162,10 +169,10 @@ export default function Home() {
             className="w-[80%]"
           >
             <CarouselContent>
-              {profiles.map((profile, idx) => (
+              {sortedProfiles.map((profile, idx) => (
                 <Dialog key={idx}>
                   <DialogTrigger asChild>
-                    <CarouselItem className="md:basis-1/1 lg:basis-1/2">
+                    <CarouselItem className="md:basis-1/1 lg:basis-1/2 cursor-pointer">
                       <div className="p-1">
                         <Card className="p-0">
                           <CardContent className="flex flex-col items-center justify-center space-y-2 pt-2 pb-6 px-2">
@@ -188,52 +195,56 @@ export default function Home() {
                       </div>
                     </CarouselItem>
                   </DialogTrigger>
-                  <DialogContent className="max-w-screen">
+                  <DialogContent className="max-w-screen p-4">
                     <DialogHeader>
                       <DialogTitle className="text-start text-2xl font-bold">
                         {profile.title}
                       </DialogTitle>
                     </DialogHeader>
-                    <div className=" flex flex-col items-center mt-6">
+                    <div className=" flex flex-col items-center">
                       <h3>詳細</h3>
-                      {profile.content && (
-                        <p className="text-start">
-                          {profile.content.split("\n").map((line, index) => (
-                            <span key={index}>
-                              {line}
-                              <br />
-                            </span>
-                          ))}
-                        </p>
+                      <div className="w-full text-start px-12">
+                        {profile.content && (
+                          <p className="text-start">
+                            {profile.content.split("\n").map((line, index) => (
+                              <span key={index}>
+                                {line}
+                                <br />
+                              </span>
+                            ))}
+                          </p>
+                        )}
+                        {profile.note && (
+                          <p className="text-sm text-muted-foreground">
+                            {profile.note}
+                          </p>
+                        )}
+                      </div>
+                      {profile.images && (
+                        <Carousel className="w-full px-12">
+                          <CarouselContent className="">
+                            {profile.images.map((image, index) => (
+                              <CarouselItem className="flex justify-center p-0">
+                                <div className="">
+                                  <Card className="w-full p-0 my-1 border-none">
+                                    <CardContent className="flex items-center justify-center">
+                                      <Image
+                                        src={"/images/profiles/" + image}
+                                        alt={image}
+                                        width={600}
+                                        height={600}
+                                        className="w-full object-cover rounded-lg"
+                                      />
+                                    </CardContent>
+                                  </Card>
+                                </div>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          <CarouselPrevious className="absolute bottom-10 left-4 w-8 h-8" />
+                          <CarouselNext className="absolute bottom-10 right-4 w-8 h-8" />
+                        </Carousel>
                       )}
-                      {profile.note && (
-                        <p className="text-sm text-muted-foreground">
-                          {profile.note}
-                        </p>
-                      )}
-                      <Carousel className="mb-6">
-                        <CarouselContent className="">
-                          {profile.images.map((image, index) => (
-                            <CarouselItem key={index} className="">
-                              <div className="">
-                                <Card className="p-0 my-1 border-none">
-                                  <CardContent className="flex items-center justify-center px-12 ">
-                                    <Image
-                                      src={"/images/profiles/" + image}
-                                      alt={image}
-                                      width={600}
-                                      height={600}
-                                      className="w-full object-cover rounded-lg"
-                                    />
-                                  </CardContent>
-                                </Card>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="absolute bottom-10 left-4" />
-                        <CarouselNext className="absolute bottom-6 right-4 w-8 h-8" />
-                      </Carousel>
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -275,40 +286,47 @@ export default function Home() {
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-col-reverse sm:flex-row items-center justify-start w-full ">
-                        <Carousel className="mb-6">
-                          <CarouselContent className="">
-                            {project.images.map((image, index) => (
-                              <CarouselItem
-                                key={index}
-                                className="w-24 sm:w-36"
-                              >
-                                <div className="">
-                                  <Card className="p-0 my-1 border-none">
-                                    <CardContent className="flex items-center justify-center p-0 ">
-                                      <Image
-                                        src={
-                                          "/images/projects/details/" + image
-                                        }
-                                        alt={project.slug}
-                                        width={400}
-                                        height={400}
-                                        className="w-60 object-cover p-0"
-                                      />
-                                    </CardContent>
-                                  </Card>
-                                </div>
-                              </CarouselItem>
-                            ))}
-                          </CarouselContent>
-                          <CarouselPrevious className="absolute bottom-10 left-0 sm:left-4" />
-                          <CarouselNext className="absolute bottom-6 right-0 sm:right-4" />
-                        </Carousel>
-
+                        {project.images && (
+                          <Carousel className="mb-6">
+                            <CarouselContent className="">
+                              {project.images.map((image, index) => (
+                                <CarouselItem
+                                  key={index}
+                                  className="w-24 sm:w-36"
+                                >
+                                  <div className="">
+                                    <Card className="p-0 my-1 border-none">
+                                      <CardContent className="flex items-center justify-center p-0 ">
+                                        <Image
+                                          src={
+                                            "/images/projects/details/" + image
+                                          }
+                                          alt={project.slug}
+                                          width={400}
+                                          height={400}
+                                          className="w-60 object-cover p-0"
+                                        />
+                                      </CardContent>
+                                    </Card>
+                                  </div>
+                                </CarouselItem>
+                              ))}
+                            </CarouselContent>
+                            {project.images.length > 1 && (
+                              <Fragment>
+                                <CarouselPrevious className="absolute bottom-10 left-0 sm:left-4" />
+                                <CarouselNext className="absolute bottom-6 right-0 sm:right-4" />
+                              </Fragment>
+                            )}
+                          </Carousel>
+                        )}
                         <div className="flex flex-col items-start p-1 sm:p-4 space-y-2 text-start">
                           <p>開発期間: {project.period}</p>
-                          <p className="">
-                            使用技術: {project.techs?.join(", ")}
-                          </p>
+                          {project.techs && project.techs.length > 0 && (
+                            <p className="">
+                              使用技術: {project.techs?.join(", ")}
+                            </p>
+                          )}
                           {project.note && (
                             <p className="text-sm text-muted-foreground">
                               {project.note}

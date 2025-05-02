@@ -132,7 +132,7 @@
     @apply text-base sm:text-xl font-bold;
   }
   p {
-    @apply text-xs sm:text-lg;
+    @apply text-xs sm:text-base font-normal;
   }
 }
 
