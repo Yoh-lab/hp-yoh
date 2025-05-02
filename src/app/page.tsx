@@ -201,13 +201,13 @@ export default function Home() {
                         {profile.title}
                       </DialogTitle>
                     </DialogHeader>
-                    <div className=" flex flex-col items-center">
+                    <div className=" flex flex-col items-center  px-12">
                       <h3>詳細</h3>
-                      <div className="w-full text-start px-12">
+                      <div className="w-full text-start">
                         {profile.content && (
                           <p className="text-start">
                             {profile.content.split("\n").map((line, index) => (
-                              <span key={index}>
+                              <span key={line + index}>
                                 {line}
                                 <br />
                               </span>
@@ -221,12 +221,15 @@ export default function Home() {
                         )}
                       </div>
                       {profile.images && (
-                        <Carousel className="w-full px-12">
+                        <Carousel className="w-full">
                           <CarouselContent className="">
                             {profile.images.map((image, index) => (
-                              <CarouselItem className="flex justify-center p-0">
+                              <CarouselItem
+                                className="flex justify-center"
+                                key={index}
+                              >
                                 <div className="">
-                                  <Card className="w-full p-0 my-1 border-none">
+                                  <Card className="w-full my-1 border-none">
                                     <CardContent className="flex items-center justify-center">
                                       <Image
                                         src={"/images/profiles/" + image}
@@ -241,8 +244,12 @@ export default function Home() {
                               </CarouselItem>
                             ))}
                           </CarouselContent>
-                          <CarouselPrevious className="absolute bottom-10 left-4 w-8 h-8" />
-                          <CarouselNext className="absolute bottom-10 right-4 w-8 h-8" />
+                          {profile.images.length > 1 && (
+                            <Fragment>
+                              <CarouselPrevious className="absolute bottom-10 left-4 w-8 h-8" />
+                              <CarouselNext className="absolute bottom-10 right-4 w-8 h-8" />
+                            </Fragment>
+                          )}
                         </Carousel>
                       )}
                     </div>

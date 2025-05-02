@@ -8,9 +8,9 @@ period: 2023-2024
 images:
   - 2023_olymTopic_No1.png
   - 2023_olymTopic_No2.png
-link: https://yoh-react-tailwindcss-portfolio.vercel.app/
+link:
 video:
-repository: https://github.com/Yoh-lab/yoh-react-tailwindcss-portfolio
+repository:
 note: 貢献： デザイン、フロントエンド、バックエンドのメイン部分実装
 techs:
   - Next.js (TypeScript, Chakra UI)
