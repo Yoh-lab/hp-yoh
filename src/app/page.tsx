@@ -28,7 +28,6 @@ import Image from "next/image";
 import { GithubIcon } from "@/components/ui/github";
 import { LinkIcon } from "@/components/ui/link";
 import { YoutubeIcon } from "@/components/ui/youtube";
-import { TwitterIcon } from "@/components/ui/twitter";
 import { InstagramIcon } from "@/components/ui/instagram";
 import { LinkedinIcon } from "@/components/ui/linkedin";
 import { Separator } from "@/components/ui/separator";
