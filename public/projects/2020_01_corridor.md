@@ -10,7 +10,7 @@ images:
   - 2020_corridor_No2.png
 link:
 video:
-repository: https://github.com/Yoh-lab/yoh-UnityGame-Corridor
+repository: https://github.com/yoh-siba/yoh-UnityGame-Corridor
 note:
 techs:
   - Unity（C#）

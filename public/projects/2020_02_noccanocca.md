@@ -10,7 +10,7 @@ images:
   - 2020_noccanocca_No2.png
 link:
 video:
-repository: https://github.com/Yoh-lab/Yoh-lab-yoh-NoccaNocca
+repository: https://github.com/yoh-siba/yoh-siba-yoh-NoccaNocca
 note:
 techs:
   - Unity（C#）

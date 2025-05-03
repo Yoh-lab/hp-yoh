@@ -10,7 +10,7 @@ images:
   - 2023_monsLab_No2.png
 link:
 video: https://www.youtube.com/watch?v=r_hJfbmIVfQ&t=1s
-repository: https://github.com/Yoh-lab/MonsLabo_frontend
+repository: https://github.com/yoh-siba/MonsLabo_frontend
 note:
 techs:
   - React (Js)

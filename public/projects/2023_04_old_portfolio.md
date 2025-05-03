@@ -10,7 +10,7 @@ images:
   - 2023_old_portfolio_No2.png
 link: https://yoh-react-tailwindcss-portfolio.vercel.app/
 video:
-repository: https://github.com/Yoh-lab/yoh-react-tailwindcss-portfolio
+repository: https://github.com/yoh-siba/yoh-react-tailwindcss-portfolio
 note:
 techs:
   - React (Js)
