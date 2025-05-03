@@ -131,10 +131,19 @@ export default function Home() {
             <div className="flex flex-col space-y-1 sm:space-y-4">
               <h1 className="w-full text-start">大塚遙 -Yoh Otsuka-</h1>
               <div className="w-full flex justify-start">
-                <GithubIcon className="w-9 h-9 sm:w-12 sm:h-12" />
-                <TwitterIcon className="w-9 h-9 sm:w-12 sm:h-12" />
-                <InstagramIcon className="w-9 h-9 sm:w-12 sm:h-12" />
-                <LinkedinIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                <a href="https://github.com/yoh-siba" target="_blank">
+                  <GithubIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                </a>
+                {/* <TwitterIcon className="w-9 h-9 sm:w-12 sm:h-12" /> */}
+                <a href="https://www.instagram.com/yo_tsuka_o/" target="_blank">
+                  <InstagramIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/yoh-otsuka/"
+                  target="_blank"
+                >
+                  <LinkedinIcon className="w-9 h-9 sm:w-12 sm:h-12" />
+                </a>
               </div>
 
               <p className="text-start">
