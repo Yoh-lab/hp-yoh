@@ -325,6 +325,7 @@ export default function Home() {
                                               alt={project.slug}
                                               width={400}
                                               height={400}
+                                              priority={true}
                                               className="w-60 object-cover p-0"
                                             />
                                           </DialogTrigger>
