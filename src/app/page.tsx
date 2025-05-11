@@ -206,7 +206,7 @@ export default function Home() {
                   </DialogTrigger>
                   <DialogContent className="max-w-screen p-4">
                     <DialogHeader>
-                      <DialogTitle className="text-start text-2xl font-bold">
+                      <DialogTitle className="text-start px-12">
                         {profile.title}
                       </DialogTitle>
                     </DialogHeader>
