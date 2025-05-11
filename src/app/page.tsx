@@ -305,12 +305,9 @@ export default function Home() {
                       <div className="flex flex-col-reverse sm:flex-row items-center justify-start w-full ">
                         {project.images && (
                           <Carousel className="mb-6">
-                            <CarouselContent className="">
+                            <CarouselContent className="w-24 sm:w-36">
                               {project.images.map((image, index) => (
-                                <CarouselItem
-                                  key={index}
-                                  className="w-24 sm:w-36"
-                                >
+                                <CarouselItem key={index} className="w-full">
                                   <div className="">
                                     <Card className="p-0 my-1 border-none">
                                       <CardContent className="flex items-center justify-center p-0 ">
