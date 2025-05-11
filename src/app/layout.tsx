@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     creator: "@yohtsuka",
   },
   verification: {
-    google: "google-site-verification-code", // Google Search Consoleの検証コードを追加
+    google: "3uN9CD-jwxTtIZtA7GppWpXV8m0uu3oy6d0hqP4qgvQ",
   },
 };
 
