@@ -1,5 +1,5 @@
 ---
-title: バレーボール歴10年
+title: バレーボール
 titleEng: VOLLEYBALL
 thumbnail: VolleyBall.jpeg
 period:
