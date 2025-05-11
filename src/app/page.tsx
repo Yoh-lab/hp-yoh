@@ -159,7 +159,7 @@ export default function Home() {
               <Avatar className="w-36 h-36 sm:w-48 sm:h-48 bg-gray-200">
                 <AvatarImage
                   src="/images/profile_image.jpg"
-                  alt="profile_image"
+                  alt="大塚遙のプロフィール画像"
                   className="w-full h-full object-cover object-top object-[75%_25%]"
                 />
               </Avatar>
@@ -189,7 +189,7 @@ export default function Home() {
                                 "/images/profiles/thumbnails/" +
                                 profile.thumbnail
                               }
-                              alt={profile.titleEng}
+                              alt={`${profile.title} - ${profile.titleEng}のサムネイル画像`}
                               width={600}
                               height={600}
                               priority={true}
@@ -242,7 +242,7 @@ export default function Home() {
                                     <CardContent className="flex items-center justify-center">
                                       <Image
                                         src={"/images/profiles/" + image}
-                                        alt={image}
+                                        alt={`${profile.title} - ${profile.titleEng}の詳細画像`}
                                         width={600}
                                         height={600}
                                         priority={true}
@@ -290,7 +290,7 @@ export default function Home() {
                                 "/images/projects/thumbnails/" +
                                 project.thumbnail
                               }
-                              alt="@shadcn"
+                              alt={`${project.title}のサムネイル画像`}
                               className="object-contain w-full h-full"
                             />
                           </Avatar>
@@ -319,7 +319,7 @@ export default function Home() {
                                                 "/images/projects/details/" +
                                                 image
                                               }
-                                              alt={project.slug}
+                                              alt={`${project.title}の詳細画像`}
                                               width={400}
                                               height={400}
                                               priority={true}
@@ -334,7 +334,7 @@ export default function Home() {
                                                   "/images/projects/details/" +
                                                   image
                                                 }
-                                                alt={project.slug}
+                                                alt={`${project.title}の拡大画像`}
                                                 width={1200}
                                                 height={1200}
                                               />
