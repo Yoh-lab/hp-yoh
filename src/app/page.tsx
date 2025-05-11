@@ -305,7 +305,7 @@ export default function Home() {
                       <div className="flex flex-col-reverse sm:flex-row items-center justify-start w-full ">
                         {project.images && (
                           <Carousel className="mb-6">
-                            <CarouselContent className="w-24 sm:w-36">
+                            <CarouselContent className="w-48 sm:w-36">
                               {project.images.map((image, index) => (
                                 <CarouselItem key={index} className="w-full">
                                   <div className="">
@@ -349,8 +349,8 @@ export default function Home() {
                             </CarouselContent>
                             {project.images.length > 1 && (
                               <Fragment>
-                                <CarouselPrevious className="absolute bottom-10 left-0 sm:left-4" />
-                                <CarouselNext className="absolute bottom-6 right-0 sm:right-4" />
+                                <CarouselPrevious className="absolute bottom-10 left-0 sm:left-0" />
+                                <CarouselNext className="absolute bottom-6 right-0 sm:right-0" />
                               </Fragment>
                             )}
                           </Carousel>
