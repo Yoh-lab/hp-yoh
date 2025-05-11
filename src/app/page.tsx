@@ -192,6 +192,7 @@ export default function Home() {
                               alt={profile.titleEng}
                               width={600}
                               height={600}
+                              priority={true}
                               className="w-full object-cover rounded-lg"
                             />
                             <div className="w-full text-start px-2">
@@ -244,6 +245,7 @@ export default function Home() {
                                         alt={image}
                                         width={600}
                                         height={600}
+                                        priority={true}
                                         className="w-full object-cover rounded-lg"
                                       />
                                     </CardContent>
